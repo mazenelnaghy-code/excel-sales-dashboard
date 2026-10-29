@@ -41,6 +41,8 @@ streamlit run app.py             # opens the dashboard in your browser
 
 The sample data is loaded automatically. Upload your own file from the sidebar.
 
+![Filtering the dashboard by branch and category](assets/demo.gif)
+
 ## What the sample data shows
 
 The sample is a year of orders from a fictional retailer with five branches, sold in store and online
