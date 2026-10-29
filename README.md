@@ -1,5 +1,7 @@
 # Excel Sales Dashboard
 
+[![tests](../../actions/workflows/tests.yml/badge.svg)](../../actions/workflows/tests.yml)
+
 Upload a sales export from Excel or CSV and get an interactive dashboard: revenue, orders and average order
 value, monthly trend, branches, categories and top products, with filters and a comparison to the previous period.
 
