@@ -126,6 +126,14 @@ def revenue_by(df, column, top=None):
     return out.head(top) if top else out
 
 
+def short_money(value, currency="EGP"):
+    """8047400 -> '8.05M EGP': three significant figures, short enough for a KPI box on a laptop screen."""
+    for size, unit in ((1e9, "B"), (1e6, "M"), (1e3, "K")):
+        if abs(value) >= size * 0.9995:  # 999,500 rounds up to 1M, not to '1e+03K'
+            return f"{value / size:.3g}{unit} {currency}"
+    return f"{value:,.0f} {currency}"
+
+
 def to_excel(df):
     """The rows as an .xlsx file in memory, for the download button."""
     buffer = BytesIO()

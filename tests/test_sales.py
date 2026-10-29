@@ -69,6 +69,13 @@ def test_previous_period_is_the_same_length_just_before(data):
     assert sales.previous_period(data, date(2025, 1, 1), date(2025, 1, 31)) is None  # no data before January
 
 
+def test_short_money():
+    assert sales.short_money(8_047_400) == "8.05M EGP"
+    assert sales.short_money(615_300) == "615K EGP"
+    assert sales.short_money(999_500) == "1M EGP"
+    assert sales.short_money(950) == "950 EGP"
+
+
 def test_change():
     assert sales.change(110, 100) == pytest.approx(10)
     assert sales.change(5, 0) is None and sales.change(5, None) is None

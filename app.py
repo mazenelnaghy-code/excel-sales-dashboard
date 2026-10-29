@@ -71,7 +71,8 @@ if view.empty:
 now = sales.kpis(view)
 was = sales.kpis(before) if before is not None and not before.empty else {}
 cols = st.columns(4)
-cols[0].metric("Revenue", money(now["revenue"]), delta(now["revenue"], was.get("revenue")))
+cols[0].metric("Revenue", sales.short_money(now["revenue"]), delta(now["revenue"], was.get("revenue")),
+               help=f"Exactly {money(now['revenue'])}")
 cols[1].metric("Orders", f"{now['orders']:,}", delta(now["orders"], was.get("orders")))
 cols[2].metric("Average order", money(now["avg_order"]), delta(now["avg_order"], was.get("avg_order")))
 if now["units"] is not None:

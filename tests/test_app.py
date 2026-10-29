@@ -17,7 +17,7 @@ def app():
 
 def test_dashboard_shows_the_sample(app):
     assert [m.label for m in app.metric] == ["Revenue", "Orders", "Average order", "Units sold"]
-    assert app.metric[0].value.endswith(" EGP")
+    assert app.metric[0].value == "8.05M EGP"  # short enough not to be cut off on a laptop
     assert len(app.get("plotly_chart")) == 4
     assert "sample data" in app.caption[0].value
 

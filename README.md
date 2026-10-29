@@ -5,6 +5,10 @@
 Upload a sales export from Excel or CSV and get an interactive dashboard: revenue, orders and average order
 value, monthly trend, branches, categories and top products, with filters and a comparison to the previous period.
 
+**Live demo:** [mazen-sales-dashboard.streamlit.app](https://mazen-sales-dashboard.streamlit.app). It opens with the sample
+data, and you can upload your own file. On the free plan the app sleeps when nobody has used it for a while, so the
+first visit can take a few seconds to wake it up.
+
 ![The dashboard on a year of sample sales](assets/dashboard.png)
 
 ## The problem
@@ -47,9 +51,9 @@ The sample is a year of orders from a fictional retailer with five branches, sol
 - **November** (White Friday) is the best month and **July** the quietest
 - Online grows from **18%** of revenue in January to **35%** in December
 
-## Put it online for free
+## Put your own copy online for free
 
-Streamlit Community Cloud hosts the dashboard at a public link:
+The live demo runs on Streamlit Community Cloud. To host your own copy at a public link:
 
 1. Sign in at [share.streamlit.io](https://share.streamlit.io) with GitHub.
 2. Click **Create app**, pick this repository, branch `main` and the file `app.py`.
