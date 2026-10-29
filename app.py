@@ -90,19 +90,22 @@ with left:
     fig.update_xaxes(dtick="M1", tickformat="%b")
     st.plotly_chart(fig, width="stretch")
 with right:
-    if "branch" in view:
-        st.subheader("Revenue by branch")
-        by_branch = sales.revenue_by(view, "branch").sort_values("revenue")
-        fig = px.bar(by_branch, x="revenue", y="branch", orientation="h", color_discrete_sequence=[AMBER],
-                     labels={"revenue": "Revenue (EGP)", "branch": ""}, text_auto=".3s")
+    # When a filter leaves one branch, break revenue down by channel instead of drawing a single bar.
+    side = sales.first_varied(view, "branch", "channel", "category")
+    if side:
+        st.subheader(f"Revenue by {side}")
+        ranked = sales.revenue_by(view, side).sort_values("revenue")
+        fig = px.bar(ranked, x="revenue", y=side, orientation="h", color_discrete_sequence=[AMBER],
+                     labels={"revenue": "Revenue (EGP)", side: ""}, text_auto=".3s")
         fig.update_layout(**CHART)
         st.plotly_chart(fig, width="stretch")
 
-left, right = st.columns([2, 3])
-with left:
-    if "category" in view:
-        st.subheader("Revenue by category")
-        fig = px.pie(sales.revenue_by(view, "category"), names="category", values="revenue", hole=0.55,
+share = sales.first_varied(view, "category", "channel", "branch", exclude=(side,))
+left, right = st.columns([2, 3]) if share else (None, st.container())  # no useful split: products take the full width
+if share:
+    with left:
+        st.subheader(f"Revenue by {share}")
+        fig = px.pie(sales.revenue_by(view, share), names=share, values="revenue", hole=0.55,
                      color_discrete_sequence=PALETTE)
         fig.update_layout(**CHART)
         fig.update_traces(textinfo="percent+label", showlegend=False)

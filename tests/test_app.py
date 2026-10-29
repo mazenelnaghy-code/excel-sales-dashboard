@@ -28,6 +28,8 @@ def test_filtering_a_branch_lowers_revenue(app):
     assert not app.exception
     assert app.metric[0].value != total
     assert "of 4,328 rows" in app.caption[0].value
+    titles = [h.value for h in app.subheader]
+    assert "Revenue by branch" not in titles and "Revenue by channel" in titles  # no single-bar chart
 
 
 def test_a_month_is_compared_with_the_month_before(app):

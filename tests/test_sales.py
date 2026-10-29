@@ -76,6 +76,13 @@ def test_short_money():
     assert sales.short_money(950) == "950 EGP"
 
 
+def test_first_varied_skips_one_value_columns(data):
+    cairo = data[data["branch"] == "Cairo"]
+    assert sales.first_varied(data, "branch", "channel") == "branch"
+    assert sales.first_varied(cairo, "branch", "channel") == "channel"
+    assert sales.first_varied(cairo, "branch", "channel", exclude=("channel",)) is None
+
+
 def test_change():
     assert sales.change(110, 100) == pytest.approx(10)
     assert sales.change(5, 0) is None and sales.change(5, None) is None

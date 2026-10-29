@@ -120,6 +120,11 @@ def monthly(df, split_by=None):
     return df.groupby(keys)["revenue"].sum().reset_index()
 
 
+def first_varied(df, *columns, exclude=()):
+    """The first of `columns` in the data with more than one value: a chart with one bar or a 100% slice says nothing."""
+    return next((c for c in columns if c in df and c not in exclude and df[c].nunique() > 1), None)
+
+
 def revenue_by(df, column, top=None):
     """Revenue per value of `column`, biggest first."""
     out = df.groupby(column)["revenue"].sum().sort_values(ascending=False).reset_index()
